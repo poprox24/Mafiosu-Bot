@@ -1,0 +1,36 @@
+{
+    "restricted_users": [
+        {
+            "name": "imnotahusky#0",
+            "id": "905174958894895144",
+            "restricttime": "09/08 14:14",
+            "time": "09/08 14:15",
+            "type": "2",
+            "reason": "test2"
+        },
+        {
+            "name": "imnotahusky#0",
+            "id": "905174958894895144",
+            "restricttime": "09/08 16:41",
+            "time": "09/08 16:45",
+            "type": "2",
+            "reason": null
+        },
+        {
+            "name": "deathbydarwin#0",
+            "id": "200286719004639232",
+            "restricttime": "19/08 15:27",
+            "time": "20/08 15:27",
+            "type": "2",
+            "reason": "Trying boundaries, aren't you, good news, you crossed them!"
+        },
+        {
+            "name": "imnotahusky#0",
+            "id": "905174958894895144",
+            "restricttime": "20/08 16:58",
+            "time": "20/08 16:59",
+            "type": "2",
+            "reason": "Test. This is my alt account"
+        }
+    ]
+}
