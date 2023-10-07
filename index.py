@@ -1,8 +1,8 @@
 import discord
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, make_response
 import asyncio
-
+import base64
 
 # Import .py files
 import auth_server
@@ -66,11 +66,23 @@ def index():
     return server.index()
 
 @app.route('/console')
-def index():
-    return render_template('potato.html'),401
+def console():
+    if ('Authorization' in request.headers):
+      authorization = request.headers['Authorization'].replace("Basic ","")
+      authorization = base64.b64decode(authorization.encode("ascii")).decode("ascii")
+
+      name = "Mafiosu"
+      password = "bigchungus"
+
+      if (authorization == f"{name}:{password}"):
+         return render_template('success.html')
+      
+    response = make_response(render_template('potato.html'), 401)
+    response.headers['WWW-Authenticate'] = 'Basic realm=Console'
+    return response
 
 @app2.route('/')
-def index():
+def uwu():
     return 'Hi, this page is not done yet, consider it an easter egg'
 
 # Verify
@@ -115,4 +127,4 @@ if __name__ == '__main__':
     threading.Thread(target=app2.run, kwargs={'host': '0.0.0.0', 'port': 25208}).start()
     
     # Run the Discord bot
-    bot.run(TOKEN)
+    # bot.run(TOKEN)
