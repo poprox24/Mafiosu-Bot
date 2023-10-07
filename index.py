@@ -83,7 +83,7 @@ def console():
 
 @app2.route('/results')
 def results():
-   return render_template('restuls.html')
+   return render_template('results.html')
 
 
 
