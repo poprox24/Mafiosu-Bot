@@ -81,6 +81,10 @@ def console():
     response.headers['WWW-Authenticate'] = 'Basic realm=Console'
     return response
 
+@app2.route('/results')
+def results():
+   return render_template('restuls.html')
+
 
 
 @app2.route('/')
