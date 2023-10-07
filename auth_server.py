@@ -5,7 +5,7 @@ import json
 import discord
 import asyncio
 
-names = ["Someone", "Idk", "Too Lazy", "Love"]
+names = ["Tournament not started","No players yet"]
 
 class AuthServer:
 
