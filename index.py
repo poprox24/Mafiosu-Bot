@@ -62,8 +62,8 @@ app2 = Flask(__name__, template_folder='./webserver/')
 server = auth_server.AuthServer(bot, 1141730722189672518, server_id, asyncio.get_event_loop())
 
 @app.route('/')
-def index():
-    return server.index()
+def uwu():
+    return 'UwU'
 
 @app2.route('/console')
 def console():
@@ -81,9 +81,11 @@ def console():
     response.headers['WWW-Authenticate'] = 'Basic realm=Console'
     return response
 
+
+
 @app2.route('/')
-def uwu():
-    return 'Hi, this page is not done yet, consider it an easter egg'
+def index():
+    return server.index()
 
 # Verify
 
