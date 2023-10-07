@@ -127,4 +127,4 @@ if __name__ == '__main__':
     threading.Thread(target=app2.run, kwargs={'host': '0.0.0.0', 'port': 25208}).start()
     
     # Run the Discord bot
-    # bot.run(TOKEN)
+    bot.run(TOKEN)
