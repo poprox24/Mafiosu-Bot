@@ -58,7 +58,7 @@ async def message(ctx, message):
 
 # Flask Web Server Setup
 app = Flask(__name__, template_folder='./websites/')
-app2 = Flask(__name__, template_folder='./webserver/')
+app2 = Flask(__name__, template_folder='./websites/')
 server = auth_server.AuthServer(bot, 1141730722189672518, server_id, asyncio.get_event_loop())
 
 @app.route('/')
