@@ -77,7 +77,7 @@ def console():
       if (authorization == f"{name}:{password}"):
          return render_template('success.html')
       
-    response = make_response(render_template('index.html'), 401)
+    response = make_response(render_template('potato.html'), 401)
     response.headers['WWW-Authenticate'] = 'Basic realm=Console'
     return response
 
