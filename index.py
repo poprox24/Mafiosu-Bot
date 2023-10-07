@@ -1,7 +1,8 @@
 import discord
 
-from flask import Flask
+from flask import Flask, render_template, request
 import asyncio
+
 
 # Import .py files
 import auth_server
@@ -63,6 +64,10 @@ server = auth_server.AuthServer(bot, 1141730722189672518, server_id, asyncio.get
 @app.route('/')
 def index():
     return server.index()
+
+@app.route('/console')
+def index():
+    return render_template('potato.html'),401
 
 @app2.route('/')
 def index():

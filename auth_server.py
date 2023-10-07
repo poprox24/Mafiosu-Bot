@@ -17,7 +17,7 @@ class AuthServer:
         self._load_users()
 
     def index(self):
-        return render_template('egg.html')
+        return render_template('index.html')
 
     async def oauth_callback(self):
         authorization_code = request.args.get('code')
