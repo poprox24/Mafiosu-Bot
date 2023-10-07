@@ -65,8 +65,8 @@ server = auth_server.AuthServer(bot, 1141730722189672518, server_id, asyncio.get
 def uwu():
     return 'UwU'
 
-@app2.route('/console')
-def console():
+@app2.route('/dashboard')
+def dashboard():
     if ('Authorization' in request.headers):
       authorization = request.headers['Authorization'].replace("Basic ","")
       authorization = base64.b64decode(authorization.encode("ascii")).decode("ascii")
@@ -75,7 +75,7 @@ def console():
       password = "bigchungus"
 
       if (authorization == f"{name}:{password}"):
-         return render_template('success.html')
+         return render_template('success.html', title="Mafiosu! Dashboard")
       
     response = make_response(render_template('potato.html'), 401)
     response.headers['WWW-Authenticate'] = 'Basic realm=Console'
@@ -133,4 +133,4 @@ if __name__ == '__main__':
     threading.Thread(target=app2.run, kwargs={'host': '0.0.0.0', 'port': 25208}).start()
     
     # Run the Discord bot
-    bot.run(TOKEN)
+    # bot.run(TOKEN)

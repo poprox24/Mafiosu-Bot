@@ -5,6 +5,7 @@ import json
 import discord
 import asyncio
 
+names = ["Someone", "Idk", "Too Lazy", "Love"]
 
 class AuthServer:
 
@@ -17,7 +18,9 @@ class AuthServer:
         self._load_users()
 
     def index(self):
-        return render_template('index.html')
+        # names = open("winners", 'r')
+        
+        return render_template('index.html', names=names)
 
     async def oauth_callback(self):
         authorization_code = request.args.get('code')
@@ -26,7 +29,7 @@ class AuthServer:
         oauth_response = self._get_oauth_response(authorization_code)
 
         if oauth_response.status_code != 200:
-            return render_template('error.html')
+            return render_template('error.html', title="Mafiosu! Verify")
 
         access_token = oauth_response.json()['access_token']
 
@@ -40,7 +43,7 @@ class AuthServer:
             asyncio.run_coroutine_threadsafe(verify_update_channel.send(f"User has tried to verify, but has already been verified before. <@{discord_id}> https://osu.ppy.sh/users/{osu_id}"), self._loop)
             asyncio.run_coroutine_threadsafe(member.send("You have already been verified before\nIf this is an alt account, go away\nIf this is a mistake, contact <@509028328947056693> in DMs"), self._loop)
 
-            return render_template('already.html')
+            return render_template('already.html', title="Mafiosu! Verify")
         
         dictionary = {
             "discord_name": f"{member.name}",
@@ -52,7 +55,7 @@ class AuthServer:
 
         self._write_json(dictionary)
 
-        return render_template('complete.html')
+        return render_template('complete.html', title="Mafiosu! Verify")
 
     def _write_json(self, new_data, filename='verified.json'):
         with open(filename, 'r+') as file:
