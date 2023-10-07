@@ -65,7 +65,7 @@ server = auth_server.AuthServer(bot, 1141730722189672518, server_id, asyncio.get
 def index():
     return server.index()
 
-@app.route('/console')
+@app2.route('/console')
 def console():
     if ('Authorization' in request.headers):
       authorization = request.headers['Authorization'].replace("Basic ","")
@@ -123,8 +123,8 @@ async def on_ready():
 
 if __name__ == '__main__':
     import threading
-    threading.Thread(target=app.run, kwargs={'host': '0.0.0.0', 'port': 25208}).start()
-    threading.Thread(target=app2.run, kwargs={'host': '0.0.0.0', 'port': 25249}).start()
+    threading.Thread(target=app.run, kwargs={'host': '0.0.0.0', 'port': 25249}).start()
+    threading.Thread(target=app2.run, kwargs={'host': '0.0.0.0', 'port': 25208}).start()
     
     # Run the Discord bot
     bot.run(TOKEN)
