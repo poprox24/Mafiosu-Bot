@@ -18,8 +18,6 @@ class AuthServer:
         self._load_users()
 
     def index(self):
-        # names = open("winners", 'r')
-        
         return render_template('index.html', names=names)
 
     async def oauth_callback(self):
