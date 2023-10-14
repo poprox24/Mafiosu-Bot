@@ -31,13 +31,11 @@ class AuthServer:
 
         access_token = oauth_response.json()['access_token']
 
-        osu_id = self._get_osu_id(access_token)
+        osu_id = str(self._get_osu_id(access_token))
 
         verify_update_channel = self._bot.get_channel(self._verify_update_channel_id)
         guild = self._bot.get_guild(self._server_id)
         member = guild.get_member(int(discord_id))
-
-        print(discord_id + " and " + str(osu_id))
         
 
         if self._is_user_verified(discord_id, osu_id):
@@ -69,7 +67,6 @@ class AuthServer:
     def _is_user_verified(self, discord_id, osu_id) -> bool:
         for user in self._users['verified_users']:
             if discord_id == user['discord_id'] or osu_id == user['osu_id']:
-                print(user['discord_id'] + "  and " + user['osu_id'])
                 return True
         
         return False
