@@ -37,6 +37,9 @@ class AuthServer:
         guild = self._bot.get_guild(self._server_id)
         member = guild.get_member(int(discord_id))
 
+        print(discord_id + " and " + osu_id)
+        
+
         if self._is_user_verified(discord_id, osu_id):
             asyncio.run_coroutine_threadsafe(verify_update_channel.send(f"User has tried to verify, but has already been verified before. <@{discord_id}> https://osu.ppy.sh/users/{osu_id}"), self._loop)
             asyncio.run_coroutine_threadsafe(member.send("You have already been verified before\nIf this is an alt account, go away\nIf this is a mistake, contact <@509028328947056693> in DMs"), self._loop)
@@ -66,6 +69,7 @@ class AuthServer:
     def _is_user_verified(self, discord_id, osu_id) -> bool:
         for user in self._users['verified_users']:
             if discord_id == user['discord_id'] or osu_id == user['osu_id']:
+                print(user['discord_id'] + "  and " + user['osu_id'])
                 return True
         
         return False

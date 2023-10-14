@@ -42,7 +42,7 @@ async def shame(ctx, title, field_name, field_text, footer_text):
 @bot.slash_command(guild_id=server_id,
                    name="message",
                    description="Custom Message")
-async def message(ctx, message):
+async def message(ctx):
   moderator = discord.utils.get(ctx.guild.roles, name="Moderator")
   head = discord.utils.get(ctx.guild.roles, name="Head")
   host = discord.utils.get(ctx.guild.roles, name="Host")
@@ -53,6 +53,19 @@ async def message(ctx, message):
     await ctx.respond("You don't have rights to use this command.",
                       ephemeral=True)
 
+# Create verify button
+@bot.slash_command(guild_id=server_id,
+                   name="verify-button",
+                   description="Creates the verify button, if removed")
+async def message(ctx, message):
+  head = discord.utils.get(ctx.guild.roles, name="Head")
+  host = discord.utils.get(ctx.guild.roles, name="Host")
+  if head in ctx.author.roles or host in ctx.author.roles:
+    await ctx.respond("Sent!", delete_after=0.05, ephemeral=True)
+    await bot.get_channel(1141718898622861424).send("Click the button to verify!", view=Button())
+  else:
+    await ctx.respond("You don't have rights to use this command.",
+                      ephemeral=True)
 
 # Verify 
 
@@ -124,7 +137,6 @@ async def on_message(ctx):
 async def on_ready():
   print(f"Logged in.")
   restriction_manager.timedRestriction.start()
-  #   await bot.get_channel(1141718898622861424).send("Click the button to verify!", view=Button())
   bot.add_view(Button())
 
 if __name__ == '__main__':
