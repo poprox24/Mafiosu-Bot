@@ -3,6 +3,7 @@ import discord
 from flask import Flask, render_template, request, make_response
 import asyncio
 import base64
+import json
 
 # Import .py files
 import auth_server
@@ -55,9 +56,9 @@ async def message(ctx):
 
 # Create verify button
 @bot.slash_command(guild_id=server_id,
-                   name="verify-button",
+                   name="verifybutton",
                    description="Creates the verify button, if removed")
-async def message(ctx, message):
+async def verifybutton(ctx):
   head = discord.utils.get(ctx.guild.roles, name="Head")
   host = discord.utils.get(ctx.guild.roles, name="Host")
   if head in ctx.author.roles or host in ctx.author.roles:
@@ -66,8 +67,6 @@ async def message(ctx, message):
   else:
     await ctx.respond("You don't have rights to use this command.",
                       ephemeral=True)
-
-# Verify 
 
 # Flask Web Server Setup
 app = Flask(__name__, template_folder='./websites/')
@@ -127,10 +126,63 @@ class Button(discord.ui.View):
 
 
 
+def _write_json(self, new_data, filename='verified.json'):
+    with open(filename, 'r+') as file:
+        self._users = json.load(file)
+        self._users["verified_users"].append(new_data)
+        file.seek(0)
+
+        json.dump(self._users, file, indent=4)
+
+# Unverify a User
+@bot.slash_command(guild_id=server_id,
+                   name="unverify",
+                   description="Unverify a user")
+async def verifybutton(ctx, name: discord.Member):
+  moderator = discord.utils.get(ctx.guild.roles, name="Moderator")
+  head = discord.utils.get(ctx.guild.roles, name="Head")
+  host = discord.utils.get(ctx.guild.roles, name="Host")
+  if moderator in ctx.author.roles or head in ctx.author.roles or host in ctx.author.roles:
+    await ctx.respond(f"Unverified! <@{name.id}>", ephemeral=True)
+    
+    name = str(name)
+
+    name = name.replace("#", "")
+    name = name.replace("0", "")
+
+    file = open("verified.json")
+
+    data = json.load(file)
+
+    for i in data["verified_users"]:
+
+      discord_name = i["discord_name"]
+      discord_id = i["discord_id"]
+      osu_id = i["osu_id"]
+
+
+    verified_users = data['verified_users']
+    filtered_users = [name for name in verified_users if name != i]
+    data['verified_users'] = filtered_users
+
+    with open('verified.json', 'w') as file:
+        json.dump(data, file, indent=4)
+
+  else:
+    await ctx.respond("You don't have rights to use this command.",
+                      ephemeral=True)
+
+
+
+
+
+
 @bot.event
 async def on_message(ctx):
   if (ctx.channel.id == 1141718898622861424 and ctx.author.id != 1123922917231710249 and ctx.content != "/verify"):
     await ctx.delete()
+
+
 
 
 @bot.event
@@ -141,7 +193,7 @@ async def on_ready():
 
 if __name__ == '__main__':
     import threading
-    threading.Thread(target=app2.run, kwargs={'host': '0.0.0.0', 'port': 25250}).start()
+    threading.Thread(target=app2.run, kwargs={'host': '0.0.0.0', 'port': 25250}).start() # Main app
     threading.Thread(target=app.run, kwargs={'host': '0.0.0.0', 'port': 25249}).start()
     
     # Run the Discord bot
