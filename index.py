@@ -141,8 +141,8 @@ async def on_ready():
 
 if __name__ == '__main__':
     import threading
-    threading.Thread(target=app.run, kwargs={'host': '0.0.0.0', 'port': 25249}).start()
     threading.Thread(target=app2.run, kwargs={'host': '0.0.0.0', 'port': 25208}).start()
+    threading.Thread(target=app.run, kwargs={'host': '0.0.0.0', 'port': 25249}).start()
     
     # Run the Discord bot
     bot.run(TOKEN)
