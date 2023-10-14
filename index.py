@@ -160,6 +160,8 @@ async def verifybutton(ctx, name: discord.Member):
       osu_id = i["osu_id"]
 
 
+    server = bot.get_guild(int(server_id))
+
     member = server.get_member_named(name)
     await member.remove_roles(discord.utils.get(server.roles, name="Member"))
 
