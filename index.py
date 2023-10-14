@@ -4,7 +4,6 @@ from flask import Flask, render_template, request, make_response
 import asyncio
 import base64
 import json
-
 # Import .py files
 import auth_server
 
@@ -160,6 +159,9 @@ async def verifybutton(ctx, name: discord.Member):
       discord_id = i["discord_id"]
       osu_id = i["osu_id"]
 
+
+    member = server.get_member_named(name)
+    await member.remove_roles(discord.utils.get(server.roles, name="Member"))
 
     verified_users = data['verified_users']
     filtered_users = [name for name in verified_users if name != i]
