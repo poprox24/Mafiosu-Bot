@@ -37,7 +37,7 @@ class AuthServer:
         guild = self._bot.get_guild(self._server_id)
         member = guild.get_member(int(discord_id))
 
-        print(discord_id + " and " + osu_id)
+        print(discord_id + " and " + str(osu_id))
         
 
         if self._is_user_verified(discord_id, osu_id):
