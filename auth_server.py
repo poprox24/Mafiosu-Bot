@@ -9,6 +9,11 @@ names = ["Tournament not started","No players yet"]
 
 class AuthServer:
 
+
+    def _load_users(self, filename='verified.json'):
+        with open(filename) as file:
+            self._users = json.load(file)
+
     def __init__(self, bot: discord.Bot, verifyUpdateChannel, serverId, loop) -> None:
         self._bot = bot
         self._verify_update_channel_id = verifyUpdateChannel
@@ -19,12 +24,12 @@ class AuthServer:
         return render_template('index.html', names=names)
 
     async def oauth_callback(self):
+        self._load_users()
+        
         authorization_code = request.args.get('code')
         discord_id = request.args.get('state')
 
         oauth_response = self._get_oauth_response(authorization_code)
-
-        self._load_users
 
         if oauth_response.status_code != 200:
             return render_template('error.html', title="Mafiosu! Verify")
@@ -70,10 +75,7 @@ class AuthServer:
                 return True
         
         return False
-    
-    def _load_users(self, filename='verified.json'):
-        with open(filename) as file:
-            self._users = json.load(file)
+
 
     async def _add_roles(self, member: discord.Member, osu_id, guild: discord.Guild, update_channel: discord.TextChannel):
         asyncio.run_coroutine_threadsafe(member.add_roles(discord.utils.get(guild.roles, name="Member")), self._loop)
