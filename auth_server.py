@@ -15,8 +15,6 @@ class AuthServer:
         self._server_id = serverId
         self._loop = loop
 
-        self._load_users()
-
     def index(self):
         return render_template('index.html', names=names)
 
@@ -25,6 +23,8 @@ class AuthServer:
         discord_id = request.args.get('state')
 
         oauth_response = self._get_oauth_response(authorization_code)
+
+        self._load_users
 
         if oauth_response.status_code != 200:
             return render_template('error.html', title="Mafiosu! Verify")

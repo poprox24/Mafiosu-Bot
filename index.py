@@ -167,6 +167,8 @@ async def verifybutton(ctx, name: discord.Member):
 
     with open('verified.json', 'w') as file:
         json.dump(data, file, indent=4)
+        file.close
+    file.close
 
   else:
     await ctx.respond("You don't have rights to use this command.",
