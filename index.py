@@ -200,7 +200,7 @@ class Button1(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=None)
     
-    @discord.ui.button(label="Create a text channel!", style=discord.ButtonStyle.primary, emoji="✅", custom_id="screening_button1")
+    @discord.ui.button(label="Create a Ticket!", style=discord.ButtonStyle.primary, emoji="✅", custom_id="screening_button1")
     async def button_callback(self, button, interaction):
         button.disabled = True
         user = interaction.user
