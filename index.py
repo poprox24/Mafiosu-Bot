@@ -1,4 +1,5 @@
 import discord
+from discord.utils import get
 
 from flask import Flask, render_template, request, make_response
 import asyncio
@@ -63,6 +64,21 @@ async def verifybutton(ctx):
   if head in ctx.author.roles or host in ctx.author.roles:
     await ctx.respond("Sent!", delete_after=0.05, ephemeral=True)
     await bot.get_channel(1141718898622861424).send("Click the button to verify!", view=Button())
+  else:
+    await ctx.respond("You don't have rights to use this command.",
+                      ephemeral=True)
+    
+
+# Create screening button
+@bot.slash_command(guild_id=server_id,
+                   name="screeningbutton",
+                   description="Creates the screening button, if removed")
+async def verifybutton(ctx):
+  head = discord.utils.get(ctx.guild.roles, name="Head")
+  host = discord.utils.get(ctx.guild.roles, name="Host")
+  if head in ctx.author.roles or host in ctx.author.roles:
+    await ctx.respond("Sent!", delete_after=0.05, ephemeral=True)
+    await bot.get_channel(1162986847253823518).send("Click the button to open a chat!", view=Button1())
   else:
     await ctx.respond("You don't have rights to use this command.",
                       ephemeral=True)
@@ -180,6 +196,24 @@ async def verifybutton(ctx, name: discord.Member):
 
 
 
+class Button1(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=None)
+    
+    @discord.ui.button(label="Create a text channel!", style=discord.ButtonStyle.primary, emoji="✅", custom_id="screening_button1")
+    async def button_callback(self, button, interaction):
+        button.disabled = True
+        user = interaction.user
+        guild = interaction.guild
+        overwrites = {
+            guild.default_role: discord.PermissionOverwrite(read_messages=False),
+            user: discord.PermissionOverwrite(read_messages=True)
+        }
+        category = discord.utils.get(interaction.guild.categories, name="screening")
+        channel = await category.create_text_channel(user.name, overwrites=overwrites)
+
+        await interaction.response.send_message(f"Private channel created: {channel.mention}", ephemeral=True)
+
 
 
 
@@ -196,6 +230,7 @@ async def on_ready():
   print(f"Logged in.")
   restriction_manager.timedRestriction.start()
   bot.add_view(Button())
+  bot.add_view(Button1())
 
 if __name__ == '__main__':
     import threading
