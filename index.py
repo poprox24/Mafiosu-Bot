@@ -212,7 +212,7 @@ class Button1(discord.ui.View):
         category = discord.utils.get(interaction.guild.categories, name="screening")
         channel = await category.create_text_channel(user.name, overwrites=overwrites)
 
-        await interaction.response.send_message(f"Private channel created: {channel.mention}", ephemeral=True)
+        await interaction.response.send_message(f"Ticket Created: {channel.mention}", ephemeral=True)
 
 
 
