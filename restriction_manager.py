@@ -9,8 +9,8 @@ restriction_channel = bot.get_channel(1141730974636458037)
 
 #restrict
 @bot.slash_command(guild_id=server_id,
-                   name="restrict",
-                   description="Restricts user.")
+                   name="restriction",
+                   description="Restricts user")
 async def restrict(ctx,
                    name: discord.Member,
                    duration,
