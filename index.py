@@ -8,6 +8,7 @@ import json
 # Import .py files
 import auth_server
 
+from discord.ext import tasks
 import typing
 from datetime import datetime, timedelta
 
