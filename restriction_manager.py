@@ -8,8 +8,8 @@ from index import server_id, bot
 restriction_channel = bot.get_channel(1141730974636458037)
 
 #restrict
-@bot.slash_command(guild_id=server_id,
-                   name="restriction",
+@bot.slash_command(guild_id=1141718152946925679,
+                   name="restrict",
                    description="Restricts user")
 async def restrict(ctx,
                    name: discord.Member,
