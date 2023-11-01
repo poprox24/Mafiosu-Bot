@@ -469,7 +469,7 @@ async def on_message(ctx):
 @bot.event
 async def on_ready():
   print(f"Logged in.")
-  restriction_manager.timedRestriction.start()
+  timedRestriction.start()
   bot.add_view(Button())
   bot.add_view(Button1())
 
