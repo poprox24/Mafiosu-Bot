@@ -8,8 +8,6 @@ import json
 # Import .py files
 import auth_server
 
-import restriction_manager
-
 import typing
 from datetime import datetime, timedelta
 
