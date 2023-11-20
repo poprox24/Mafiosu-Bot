@@ -284,7 +284,7 @@ async def shame(ctx, title, field_name, field_text, footer_text):
 @bot.slash_command(guild_id=server_id,
                    name="message",
                    description="Custom Message")
-async def message(ctx):
+async def message(ctx, message):
   moderator = discord.utils.get(ctx.guild.roles, name="Moderator")
   head = discord.utils.get(ctx.guild.roles, name="Head")
   host = discord.utils.get(ctx.guild.roles, name="Host")
@@ -446,9 +446,12 @@ class Button1(discord.ui.View):
         button.disabled = True
         user = interaction.user
         guild = interaction.guild
+        head = discord.utils.get(guild.roles, name="Head")
+        print(str(head))
         overwrites = {
             guild.default_role: discord.PermissionOverwrite(read_messages=False),
-            user: discord.PermissionOverwrite(read_messages=True)
+            user: discord.PermissionOverwrite(read_messages=True),
+            head: discord.PermissionOverwrite(read_messages=True)
         }
         category = discord.utils.get(interaction.guild.categories, name="screening")
         channel = await category.create_text_channel(user.name, overwrites=overwrites)
