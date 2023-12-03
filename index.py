@@ -21,7 +21,6 @@ bot = discord.Bot(intents=intents)
 
 server_id = 1141718152946925679 
 
-restriction_channel = bot.get_channel(1141730974636458037)
 
 #restrict
 @bot.slash_command(guild_id=1141718152946925679,
@@ -78,7 +77,7 @@ async def restrict(ctx,
       value=
       f"<@{name.id}> Was restricted\n\nRestricted At: **{time.strftime('%d/%m %H:%M')}**\nWhen Unrestricted: **{unrestrict_time.strftime('%d/%m %H:%M')}**\n\nType: **{restrictedtype}**\n\nReason: **{reason}**"
     )
-    await restriction_channel.send(embed=message)
+    await bot.get_channel(1141730974636458037).send(embed=message)
 
     if (restriction == "1"):
       await name.add_roles(
@@ -182,7 +181,7 @@ async def clearrestrict(ctx,
       value=
       f"<@{id}> Was Unrestricted\n\nWhen Restricted: **{unrestrictedtime}**\nWhen Supposed To Be Unrestricted: **{unrestricttime}**\n\nType: **{restrictedtype}**\n\nReason For Restricted: **{restrictreason}**\n\n\nWhen Unrestricted: **{currentunrestricttime}**\nUnrestrict Reason: **{reason}**"
     )
-    await restriction_channel.send(embed=message)
+    await bot.get_channel(1141730974636458037).send(embed=message)
 
     with open('restriction.json') as file:
       data = json.load(file)
